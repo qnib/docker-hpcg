@@ -9,4 +9,4 @@ RUN curl -sfL http://www.hpcg-benchmark.org/downloads/hpcg-3.0.tar.gz | tar xzf 
     module load mpi && \
     make -j2
 ADD opt/qnib/jobscripts/hpcg.sh /opt/qnib/jobscripts/
-
+ADD opt/qnib/bin/eval_hpcg.py /opt/qnib/bin/

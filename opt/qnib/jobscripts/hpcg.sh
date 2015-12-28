@@ -30,4 +30,12 @@ echo "################ \JOBRUN ############################"
 echo "####################################################"
 WTIME=$(echo "$(date +%s) - ${START_TIME}"|bc)
 logger -t slurm_${JOBID} "Job ${JOBID} ends K:${KVAL}; wall:${WTIME}"
+echo "## $(date +'%F %H:%M:%S') Job ends"
+if [ ${EC} -eq 0 ];then
+    END_TIME=$(date +%s)
+    echo "END_TIME=${END_TIME}"
+    WALL_CLOCK=$((${END_TIME}-${START_TIME}))
+    echo "WALL_CLOCK=${WALL_CLOCK}" >> job.cfg
+    eval_hpcg.py --wall-clock ${WALL_CLOCK}  HPCG-Benchmark-*.yaml
+fi
 exit 0
