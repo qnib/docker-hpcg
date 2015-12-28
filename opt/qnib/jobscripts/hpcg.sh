@@ -1,29 +1,27 @@
 #!/bin/bash
-#SBATCH --job-name=GeMM
+#SBATCH --job-name=HPCG
 #SBATCH --workdir=/scratch/
 #SBATCH --output=slurm-%j.out
 #SBATCH --error=slurm-%j.err
 
-KVAL=${1-16384}
-SLEEP=${2-250}
-ERR_NODE=${3-noerrornode}
 JOBID=${SLURM_JOBID}
 NLIST=${SLURM_NODELIST}
 START_TIME=$(date +%s)
 NODES=$(python -c "from ClusterShell.NodeSet import NodeSet;print ' '.join(NodeSet('${SLURM_NODELIST}'))")
-CMD="/opt/qnib/bin/gemm_block_mpi_${SLEEP}ms -K ${KVAL}"
-logger -t slurm_${JOBID}  "Job ${JOBID} starts. K:${KVAL}"
+logger -t slurm_${JOBID}  "Job ${JOBID} starts."
 echo "####################################################"
 echo "################ JOBRUN ############################"
 echo "####################################################"
 logger -t slurm_${JOBID}  "mpirun -q ${CMD}"
-if [ $(echo ${NODES}|grep -c ${ERR_NODE}) -ne 0 ];then
-    # let job fail after 30sec
-    sleep 30
-    logger -t slurm_${JOBID}  "Job failed (tell you a secret: due to error node trigger)"
-    exit 42
-fi
-mpirun -q ${CMD}
+mkdir -p /scratch/hpcg/${JOBID}
+cat << \EOF > /scratch/hpcg/${JOBID}/hpcg.dat
+HPCG benchmark input file
+Sandia National Laboratories; University of Tennessee, Knoxville
+104 104 104
+120
+EOF
+cd /scratch/hpcg/${JOBID}/
+mpirun -q /opt/hpcg-3.0/Linux_MPI/bin/xhpcg
 echo "####################################################"
 echo "################ \JOBRUN ############################"
 echo "####################################################"
