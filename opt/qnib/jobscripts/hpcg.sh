@@ -17,12 +17,10 @@ echo "################ JOBRUN ############################"
 echo "####################################################"
 logger -t slurm_${JOBID}  "mpirun -q ${CMD} TIME:${JOB_TIME} SIZE:${JOB_SIZE}"
 mkdir -p /scratch/hpcg/${JOBID}
-cat << \EOF > /scratch/hpcg/${JOBID}/hpcg.dat
-HPCG benchmark input file
-Sandia National Laboratories; University of Tennessee, Knoxville
-${JOB_SIZE} ${JOB_SIZE} ${JOB_SIZE}
-${JOB_TIME}
-EOF
+echo "HPCG benchmark input file" > /scratch/hpcg/${JOBID}/hpcg.dat
+echo "Sandia National Laboratories; University of Tennessee, Knoxville" > /scratch/hpcg/${JOBID}/hpcg.dat
+echo "${JOB_SIZE} ${JOB_SIZE} ${JOB_SIZE}" > /scratch/hpcg/${JOBID}/hpcg.dat
+echo "${JOB_TIME}" > /scratch/hpcg/${JOBID}/hpcg.dat
 cd /scratch/hpcg/${JOBID}/
 mpirun -q ${CMD}
 echo "####################################################"
