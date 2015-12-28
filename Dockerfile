@@ -8,4 +8,5 @@ RUN curl -sfL http://www.hpcg-benchmark.org/downloads/hpcg-3.0.tar.gz | tar xzf 
     source /etc/profile && \
     module load mpi && \
     make -j2
+ADD opt/qnib/jobscripts/hpcg.sh /opt/qnib/jobscripts/
 
