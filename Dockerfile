@@ -1,6 +1,6 @@
-FROM qnib/compute
+FROM qnib/terminal:cos7
 
-RUN yum install -y gcc-c++
+RUN yum install -y gcc-c++ iperf
 RUN curl -sfL http://www.hpcg-benchmark.org/downloads/hpcg-3.0.tar.gz | tar xzf - -C /opt/ && \
     mkdir /opt/hpcg-3.0/Linux_MPI && \
     cd /opt/hpcg-3.0/Linux_MPI && \
