@@ -2,7 +2,7 @@ FROM qnib/compute
 
 RUN echo "2016-02-05.1" && \
     dnf clean all && \
-    yum install -y make gcc-c++
+    dnf install -y make gcc-c++
 RUN curl -sfL http://www.hpcg-benchmark.org/downloads/hpcg-3.0.tar.gz | tar xzf - -C /opt/ && \
     mkdir /opt/hpcg-3.0/Linux_MPI && \
     cd /opt/hpcg-3.0/Linux_MPI && \
