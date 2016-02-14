@@ -1,7 +1,7 @@
 FROM qnib/compute
 
 RUN echo "2016-02-05.1" && \
-    yum clean all && \
+    dnf clean all && \
     yum install -y make gcc-c++
 RUN curl -sfL http://www.hpcg-benchmark.org/downloads/hpcg-3.0.tar.gz | tar xzf - -C /opt/ && \
     mkdir /opt/hpcg-3.0/Linux_MPI && \
