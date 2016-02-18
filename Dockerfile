@@ -1,6 +1,6 @@
 FROM qnib/cluster:cos7
 
-RUN yum install -y gcc-c++ iperf
+RUN yum install -y gcc-c++ iperf make
 RUN curl -sfL http://www.hpcg-benchmark.org/downloads/hpcg-3.0.tar.gz | tar xzf - -C /opt/ && \
     mkdir /opt/hpcg-3.0/Linux_MPI && \
     cd /opt/hpcg-3.0/Linux_MPI && \
